@@ -1,10 +1,10 @@
 # Exemplo JWT 
 
-Criando uma API RESTful com autenticaÁ„o usando Web API 2.x and JWT (JSON Web Tokens). 
+Criando uma API RESTful com autentica√ß√£o usando Web API 2.x and JWT (JSON Web Tokens). 
 
-### Prerequisitos
+### Pr√©-requisitos
 
-Ferramentas necess·rias para utilizaÁ„o
+Ferramentas necess√°rias para utiliza√ß√£o
 
 ```
 Visual Studios 2015 ou superior
@@ -12,4 +12,4 @@ Visual Studios 2015 ou superior
 
 ## Executando
 
-A projeto inicial JwtExample ser· executado em seu navegador e disponibilizando os botıes para utilizaÁ„o.
+A projeto inicial JwtExample ser√° executado em seu navegador e disponibilizando os bot√µes para utiliza√ß√£o.
