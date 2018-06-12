@@ -1,0 +1,9 @@
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.Services\bin\Debug\JwtWithWebAPI.Services.dll
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.Services\bin\Debug\JwtWithWebAPI.Services.pdb
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.Services\bin\Debug\JwtWithWebAPI.DomainClasses.dll
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.Services\bin\Debug\JwtWithWebAPI.DomainClasses.pdb
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.Services\obj\Debug\JwtWithWebAPI.Services.csprojAssemblyReference.cache
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.Services\obj\Debug\JwtWithWebAPI.Services.csproj.CoreCompileInputs.cache
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.Services\obj\Debug\JwtWithWebAPI.Services.csproj.CopyComplete
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.Services\obj\Debug\JwtWithWebAPI.Services.dll
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.Services\obj\Debug\JwtWithWebAPI.Services.pdb

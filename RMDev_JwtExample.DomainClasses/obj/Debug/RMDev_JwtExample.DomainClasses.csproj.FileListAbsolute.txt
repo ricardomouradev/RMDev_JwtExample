@@ -1,0 +1,17 @@
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.DomainClasses\bin\Debug\JwtWithWebAPI.DomainClasses.dll
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.DomainClasses\bin\Debug\JwtWithWebAPI.DomainClasses.pdb
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.DomainClasses\obj\Debug\RMDev_JwtExample.DomainClasses.csprojAssemblyReference.cache
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.DomainClasses\obj\Debug\RMDev_JwtExample.DomainClasses.csproj.CoreCompileInputs.cache
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.DomainClasses\obj\Debug\JwtWithWebAPI.DomainClasses.dll
+C:\Source\GitHub\WebApi_with_security\JwtWithWebAPI.DomainClasses\obj\Debug\JwtWithWebAPI.DomainClasses.pdb
+C:\Source\GitHub\WebApi_with_security\RMDev_JwtExample.DomainClasses\bin\Debug\JwtWithWebAPI.DomainClasses.dll
+C:\Source\GitHub\WebApi_with_security\RMDev_JwtExample.DomainClasses\bin\Debug\JwtWithWebAPI.DomainClasses.pdb
+C:\Source\GitHub\WebApi_with_security\RMDev_JwtExample.DomainClasses\obj\Debug\RMDev_JwtExample.DomainClasses.csproj.CoreCompileInputs.cache
+C:\Source\GitHub\WebApi_with_security\RMDev_JwtExample.DomainClasses\obj\Debug\JwtWithWebAPI.DomainClasses.dll
+C:\Source\GitHub\WebApi_with_security\RMDev_JwtExample.DomainClasses\obj\Debug\JwtWithWebAPI.DomainClasses.pdb
+C:\Source\GitHub\RMDev_JwtExample\RMDev_JwtExample.DomainClasses\bin\Debug\JwtWithWebAPI.DomainClasses.dll
+C:\Source\GitHub\RMDev_JwtExample\RMDev_JwtExample.DomainClasses\bin\Debug\JwtWithWebAPI.DomainClasses.pdb
+C:\Source\GitHub\RMDev_JwtExample\RMDev_JwtExample.DomainClasses\obj\Debug\RMDev_JwtExample.DomainClasses.csprojAssemblyReference.cache
+C:\Source\GitHub\RMDev_JwtExample\RMDev_JwtExample.DomainClasses\obj\Debug\RMDev_JwtExample.DomainClasses.csproj.CoreCompileInputs.cache
+C:\Source\GitHub\RMDev_JwtExample\RMDev_JwtExample.DomainClasses\obj\Debug\JwtWithWebAPI.DomainClasses.dll
+C:\Source\GitHub\RMDev_JwtExample\RMDev_JwtExample.DomainClasses\obj\Debug\JwtWithWebAPI.DomainClasses.pdb

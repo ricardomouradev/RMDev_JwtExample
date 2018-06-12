@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>JWT example - RMDev</title>
+    <meta charset="utf-8" />
+    <!--<script type="text/javascript" src="Scripts/jquery-3.3.1.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="Scripts/jwt-decode.js"></script>
+    <style>
+        .highlight {
+            padding: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            background-color: #f7f7f9;
+            -ms-overflow-style: -ms-autohiding-scrollbar;
+        }
+
+        .btn {
+            -moz-box-shadow: 0px 8px 10px -7px #808080;
+            -webkit-box-shadow: 0px 8px 10px -7px #808080;
+            box-shadow: 0px 8px 10px -7px #808080;
+            background-color: #7892c2;
+            -moz-border-radius: 7px;
+            -webkit-border-radius: 7px;
+            border-radius: 7px;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 6px 12px;
+            text-decoration: none;
+        }
+
+            .btn:hover {
+                background-color: #476e9e;
+            }
+
+            .btn:active {
+                position: relative;
+                top: 1px;
+            }
+        h1, h2 {
+            font-family:Calibri,Arial;
+        }
+    </style>
+</head>
+<body>
+    <h1>JWT Example</h1>
+    <button class="btn" type="button" onclick="doLogin()" id="login">Login</button>
+    <button class="btn" type="button" onclick="doCallApi()" id="callApi">Call Protected API ([Authorize])</button>
+    <button class="btn" type="button" onclick="doCallAdminApi()" id="callAdminApi">Call Protected Admin API [Authorize(Roles = "Admin")]</button>
+    <button class="btn" type="button" onclick="doCallAdminApiUsingGet()" id="callAdminApiUsingGet">Call Protected Admin API, Test $.ajaxSetup</button>
+    <button class="btn" type="button" onclick="doRefreshToken()" name="refreshToken">Refresh Token</button>
+    <button class="btn" type="button" onclick="doLogout()" name="logout">Logout</button>
+
+    <div id="ajaxResponse" style="display: none;">
+        <h2>Response</h2>
+        <div class="highlight">
+            <pre><code id="ajaxResponseInfo"></code></pre>
+        </div>
+    </div>
+    <div id="decodedToken" style="display: none;">
+        <h2>Decoded Access Token</h2>
+        <div class="highlight">
+            <pre><code id="jwtInfo"></code></pre>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        var jwtToken;
+        var refreshToken;
+
+        function isNullOrEmpty(value) {
+            return (typeof value == 'undefined' || !value);
+        }
+
+        function doLogin() {
+            $.ajax({
+                url: "/login", // web.config --> appConfiguration -> tokenPath
+                data: {
+                    username: "Ricardo",
+                    password: "1234",
+                    grant_type: "password",
+                    "my-very-special-key1": "value1" 
+                },
+                type: 'POST', 
+                contentType: 'application/x-www-form-urlencoded'
+            }).then(function (response) {
+                showResponse(response);
+                jwtToken = response.access_token;
+                refreshToken = response.refresh_token;
+                setHeadersOfAllRequests();
+                showDecodedToken();
+            }, function (xhr, status, error) {
+                var response = xhr.responseText;
+                alert(JSON.stringify(JSON.parse(response), null, ' '));
+            });
+        }
+
+        function doRefreshToken() {
+            if (isNullOrEmpty(refreshToken)) {
+                alert('Please login first.');
+                return;
+            }
+            // obter um novo token usando refresh_token deve ocorrer somente se o id_token exprirar.
+            $.ajax({
+                url: "/login", // web.config --> appConfiguration -> tokenPath
+                data: {
+                    grant_type: "refresh_token",
+                    refresh_token: refreshToken
+                },
+                type: 'POST', 
+                contentType: 'application/x-www-form-urlencoded'
+            }).then(function (response) {
+                showResponse(response);
+                jwtToken = response.access_token;
+                refreshToken = response.refresh_token;
+                setHeadersOfAllRequests();
+                showDecodedToken();
+            }, function (xhr, status, error) {
+                var response = xhr.responseText;
+                alert(JSON.stringify(JSON.parse(response), null, ' '));
+            });
+        }
+
+        function doCallApi() {
+            if (isNullOrEmpty(jwtToken)) {
+                alert('Please login first.');
+                return;
+            }
+
+            $.ajax({
+                headers: { 'Authorization': 'Bearer ' + jwtToken },
+                url: "/api/MyProtectedApi",
+                type: 'GET'
+            }).then(function (response) {
+                showResponse(response);
+            }, function (xhr, status, error) {
+                var response = xhr.responseText;
+                alert(JSON.stringify(JSON.parse(response), null, ' '));
+
+                if (refreshToken && xhr.status === 401) {
+                    //doRefreshToken();
+                }
+            });
+        }
+
+        function doCallAdminApi() {
+            if (isNullOrEmpty(jwtToken)) {
+                alert('Please login first.');
+                return;
+            }
+
+            $.ajax({
+                headers: { 'Authorization': 'Bearer ' + jwtToken },
+                url: "/api/MyProtectedAdminApi",
+                type: 'GET'
+            }).then(function (response) {
+                showResponse(response);
+            }, function (xhr, status, error) {
+                var response = xhr.responseText;
+                alert(JSON.stringify(JSON.parse(response), null, ' '));
+
+                if (refreshToken && xhr.status === 401) {
+                    //doRefreshToken();
+                }
+            });
+        }
+
+        function doLogout() {
+            if (isNullOrEmpty(jwtToken)) 
+            {
+                alert('Please login first.');
+                return;
+            }
+
+            $.ajax({
+                headers: { 'Authorization': 'Bearer ' + jwtToken },
+                url: "/api/user/logout",
+                type: 'GET'
+            }).then(function (response) {
+                showResponse(response);
+
+                jwtToken = '';
+                refreshToken = '';
+            }, function (xhr, status, error) {
+                var response = xhr.responseText;
+                alert(JSON.stringify(JSON.parse(response), null, ' '));
+            });
+        }
+
+        function setHeadersOfAllRequests() {
+            $.ajaxSetup({
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + jwtToken);
+                }
+            });
+        }
+
+        function doCallAdminApiUsingGet() {
+            if (isNullOrEmpty(jwtToken)) {
+                alert('Please login first.');
+                return;
+            }
+           
+            $.get("/api/MyProtectedAdminApi")
+                .then(function (response) {
+                    showResponse(response);
+                }, function (xhr, status, error) {
+                    var response = xhr.responseText;
+                    alert(JSON.stringify(JSON.parse(response), null, ' '));
+
+                    if (refreshToken && xhr.status === 401) {
+                        //doRefreshToken();
+                    }
+                });
+        }
+
+        function showDecodedToken() {
+            $("#decodedToken").show();
+            let decodedToken = jwt_decode(jwtToken);
+            console.log(decodedToken);
+            $("#jwtInfo").text(JSON.stringify(decodedToken).replace(/,/g, ',\n'));
+        }
+
+        function showResponse(response) {
+            $("#ajaxResponse").show();
+            let responseStr = JSON.stringify(response, null, ' ');
+            console.log("response", response);
+            $("#ajaxResponseInfo").text(responseStr);
+        }
+    </script>
+</body>
+</html>
